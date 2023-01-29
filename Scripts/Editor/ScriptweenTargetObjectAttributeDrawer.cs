@@ -1,22 +1,24 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using Sirenix.OdinInspector.Editor;
+﻿using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace Scriptweener.Editor
 {
-    public class ScriptweenTargetObjectAttributeDrawer : OdinAttributeDrawer<ScriptweenTargetObjectAttribute, UnityEngine.Object>
+    [CustomPropertyDrawer(typeof(ScriptweenTargetObjectAttribute), true)]
+    public class ScriptweenTargetObjectAttributeDrawer : NestablePropertyDrawer
     {
         private PropertyInfo m_PropertyInfo;
         private FieldInfo m_FieldInfo;
-        
-        protected override void Initialize()
+
+        protected override void OnEnable(SerializedProperty property)
         {
-            var hostType = this.Property.Parent.ValueEntry.TypeOfValue;
-            var members = hostType.GetMember(this.Attribute.TypeProvider);
-            
+            base.OnEnable(property);
+
+            var a = attribute as ScriptweenTargetObjectAttribute;
+
+            var hostType = _currentPropertyParentObject.GetType();
+            var members = hostType.GetMember(a.TypeProvider);
+
             PropertyInfo propertyInfo = null;
             FieldInfo fieldInfo = null;
             if (members.Length == 1)
@@ -35,9 +37,11 @@ namespace Scriptweener.Editor
             m_FieldInfo = fieldInfo;
         }
 
-        protected override void DrawPropertyLayout(GUIContent label)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var obj = this.Property.Parent.ValueEntry.WeakSmartValue;
+            base.OnGUI(position, property, label);
+
+            var obj = _currentPropertyParentObject;
             ClassTypeReference targetType = null;
             if (m_PropertyInfo != null)
             {
@@ -50,15 +54,8 @@ namespace Scriptweener.Editor
 
             if (targetType != null)
             {
-                Rect rect = EditorGUILayout.GetControlRect();
-
-                if (label != null)
-                {
-                    rect = EditorGUI.PrefixLabel(rect, label);
-                }
-                
-                this.ValueEntry.SmartValue = 
-                    EditorGUI.ObjectField(rect, this.ValueEntry.SmartValue, targetType.Type, true);
+                property.objectReferenceValue = 
+                    EditorGUI.ObjectField(position, label, property.objectReferenceValue, targetType.Type, true);
             }
         }
     }

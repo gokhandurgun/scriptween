@@ -1,9 +1,10 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Scriptweener
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-    public class ScriptweenTargetObjectAttribute : Attribute
+    public class ScriptweenTargetObjectAttribute : PropertyAttribute
     {
         public string TypeProvider { get; set; }
 

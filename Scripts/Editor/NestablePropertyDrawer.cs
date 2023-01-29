@@ -13,8 +13,9 @@ namespace Scriptweener.Editor
     {
         private static readonly Regex _matchArrayElement = new Regex(@"^data\[(\d+)\]$");
 
-        private Dictionary<ValueTuple<int, string>, object> _propertyObjects;
+        private Dictionary<ValueTuple<int, string>, ValueTuple<object, object>> _propertyObjects;
 
+        protected object _currentPropertyParentObject;
         protected object _currentPropertyObject;
 
         protected bool _newlyInitialized;
@@ -23,13 +24,14 @@ namespace Scriptweener.Editor
         {
             if (_propertyObjects == null)
             {
-                _propertyObjects = new Dictionary<(int, string), object>();
+                _propertyObjects = new Dictionary<(int, string), ValueTuple<object, object>>();
             }
 
             var tuple = new ValueTuple<int, string>(prop.serializedObject.targetObject.GetInstanceID(), prop.propertyPath);
             if (_propertyObjects.TryGetValue(tuple, out var o))
             {
-                _currentPropertyObject = o;
+                _currentPropertyParentObject = o.Item1;
+                _currentPropertyObject = o.Item2;
                 _newlyInitialized = false;
             }
             else
@@ -39,6 +41,7 @@ namespace Scriptweener.Editor
 
                 object propertyObject = serializedObject == null || serializedObject.targetObject == null ? null : serializedObject.targetObject;
                 var objectType = propertyObject == null ? null : propertyObject.GetType();
+                object parentObject = null;
                 if (!string.IsNullOrEmpty(path) && propertyObject != null)
                 {
                     string[] splitPath = path.Split('.');
@@ -65,6 +68,7 @@ namespace Scriptweener.Editor
                             {
                                 IList objectArray = (IList)propertyObject;
                                 bool validArrayEntry = objectArray != null && index < objectArray.Count;
+                                parentObject = propertyObject;
                                 propertyObject = validArrayEntry ? objectArray[index] : null;
                                 objectType = propertyObject?.GetType()
                                     ?? (fieldType.IsArray
@@ -95,14 +99,17 @@ namespace Scriptweener.Editor
                             while (field == null && instanceType != typeof(object));
 
                             //store object info for next iteration or to return
+                            parentObject = propertyObject;
                             propertyObject = field == null || propertyObject == null ? null : field.GetValue(propertyObject);
-                            fieldType = field == null ? null : field.FieldType;
+                            fieldType = propertyObject?.GetType()
+                                ?? (field == null ? null : field.FieldType);
                             objectType = fieldType;
                         }
                     }
                 }
 
-                _propertyObjects.Add(tuple, propertyObject);
+                _propertyObjects.Add(tuple, new ValueTuple<object, object>(parentObject, propertyObject));
+                _currentPropertyParentObject = parentObject;
                 _currentPropertyObject = propertyObject;
                 _newlyInitialized = true;
             }
