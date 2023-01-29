@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Scriptweener.Editor
@@ -13,6 +14,7 @@ namespace Scriptweener.Editor
     {
         private Scriptween _scriptween;
         private SerializedProperty _optionsProperty;
+        private StringListSearchProvider _tweenSearchProvider;
 
         private void OnEnable()
         {
@@ -30,26 +32,30 @@ namespace Scriptweener.Editor
 
             serializedObject.Update();
 
-            var options = Scriptween.TweenNames.ToArray();
-
-            var selectedIndex = 0;
-            for (int i = 0; i < options.Length; i++)
+            if (_tweenSearchProvider == null)
             {
-                if (_scriptween.Tween == options[i])
+                _tweenSearchProvider = new StringListSearchProvider();
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Tween", GUILayout.ExpandWidth(false), GUILayout.Width(EditorGUIUtility.labelWidth));
+            if (GUILayout.Button(_scriptween.Tween, EditorStyles.popup))
+            {
+                var options = Scriptween.TweenNames.ToArray();
+                _tweenSearchProvider.Load("Tween", options, x =>
                 {
-                    selectedIndex = i;
-                    break;
-                }
+                    var newTween = x;
+                    if (_scriptween.Tween != newTween)
+                    {
+                        _scriptween.Tween = newTween;
+                        _scriptween.TweenSelected();
+                    }
+                });
+
+                SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(Event.current.mousePosition)), _tweenSearchProvider);
             }
 
-            //TODO: Set max height
-            EditorGUI.BeginChangeCheck();
-            selectedIndex = EditorGUILayout.Popup("Tween", selectedIndex, options);
-            if (EditorGUI.EndChangeCheck())
-            {
-                _scriptween.Tween = options[selectedIndex];
-                _scriptween.TweenSelected();
-            }
+            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space(8);
 
