@@ -11,20 +11,18 @@ namespace Scriptweener.Editor
     [CustomPropertyDrawer(typeof(SequenceScriptween), true)]
     public class SequenceScriptweenEditor : NestablePropertyDrawer
     {
-        private UnityEditor.Editor m_Editor;
-
-        private SequenceScriptween m_SequenceScriptween;
-        private SerializedProperty m_EntriesProperty;
-        private SerializedProperty m_OptionsProperty;
+        private SequenceScriptween _sequenceScriptween;
+        private SerializedProperty _entriesProperty;
+        private SerializedProperty _optionsProperty;
 
         protected override void OnEnable(SerializedProperty property)
         {
             base.OnEnable(property);
 
-            m_SequenceScriptween = _currentPropertyObject as SequenceScriptween;
+            _sequenceScriptween = _currentPropertyObject as SequenceScriptween;
 
-            m_OptionsProperty = property.FindPropertyRelative("m_OptionCatalogue");
-            m_EntriesProperty = property.FindPropertyRelative(nameof(SequenceScriptween.Entries));
+            _optionsProperty = property.FindPropertyRelative("_optionCatalogue");
+            _entriesProperty = property.FindPropertyRelative(nameof(SequenceScriptween.Entries));
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -38,19 +36,19 @@ namespace Scriptweener.Editor
             var rect = position;
             var totalWidth = position.width;
 
-            EditorGUI.LabelField(rect, m_EntriesProperty.displayName);
+            EditorGUI.LabelField(rect, _entriesProperty.displayName);
 
             rect.width = 55;
 
             rect.x = totalWidth;
             if (GUI.Button(rect, "Add"))
             {
-                if (m_SequenceScriptween.Entries == null)
+                if (_sequenceScriptween.Entries == null)
                 {
-                    m_SequenceScriptween.Entries = new List<SequenceScriptweenEntry>();
+                    _sequenceScriptween.Entries = new List<SequenceScriptweenEntry>();
                 }
-                m_SequenceScriptween.Entries.Add(new SequenceScriptweenEntry());
-                m_EntriesProperty.serializedObject.ApplyModifiedProperties();
+                _sequenceScriptween.Entries.Add(new SequenceScriptweenEntry());
+                _entriesProperty.serializedObject.ApplyModifiedProperties();
             }
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -58,10 +56,10 @@ namespace Scriptweener.Editor
             {
                 EditorGUI.indentLevel++;
 
-                var arraySize = m_EntriesProperty.arraySize;
+                var arraySize = _entriesProperty.arraySize;
                 for (var i = 0; i < arraySize; i++)
                 {
-                    var arrayElement = m_EntriesProperty.GetArrayElementAtIndex(i);
+                    var arrayElement = _entriesProperty.GetArrayElementAtIndex(i);
                     if (arrayElement != null)
                     {
                         EditorGUILayout.BeginHorizontal("box");
@@ -88,19 +86,19 @@ namespace Scriptweener.Editor
                             }
                             else if (GUILayout.Button("\u25B2", GUILayout.Width(22), GUILayout.Height(20)))
                             {
-                                var item = m_SequenceScriptween.Entries[i];
-                                m_SequenceScriptween.Entries.RemoveAt(i);
-                                m_SequenceScriptween.Entries.Insert(i - 1, item);
+                                var item = _sequenceScriptween.Entries[i];
+                                _sequenceScriptween.Entries.RemoveAt(i);
+                                _sequenceScriptween.Entries.Insert(i - 1, item);
 
-                                m_EntriesProperty.serializedObject.ApplyModifiedProperties();
+                                _entriesProperty.serializedObject.ApplyModifiedProperties();
                             }
 
                             if (GUILayout.Button("\u2715", GUILayout.Width(22), GUILayout.Height(20)))
                             {
-                                m_SequenceScriptween.Entries.RemoveAt(i);
+                                _sequenceScriptween.Entries.RemoveAt(i);
                                 i--;
                                 arraySize--;
-                                m_EntriesProperty.serializedObject.ApplyModifiedProperties();
+                                _entriesProperty.serializedObject.ApplyModifiedProperties();
                             }
 
                             if (i == arraySize - 1)
@@ -109,11 +107,11 @@ namespace Scriptweener.Editor
                             }
                             else if (GUILayout.Button("\u25BC", GUILayout.Width(22), GUILayout.Height(20)))
                             {
-                                var item = m_SequenceScriptween.Entries[i];
-                                m_SequenceScriptween.Entries.RemoveAt(i);
-                                m_SequenceScriptween.Entries.Insert(i + 1, item);
+                                var item = _sequenceScriptween.Entries[i];
+                                _sequenceScriptween.Entries.RemoveAt(i);
+                                _sequenceScriptween.Entries.Insert(i + 1, item);
 
-                                m_EntriesProperty.serializedObject.ApplyModifiedProperties();
+                                _entriesProperty.serializedObject.ApplyModifiedProperties();
                             }
 
                             GUILayout.FlexibleSpace();
@@ -128,7 +126,7 @@ namespace Scriptweener.Editor
             }
 
             EditorGUI.BeginChangeCheck();
-            EditorGUILayout.PropertyField(m_OptionsProperty, GUIContent.none);
+            EditorGUILayout.PropertyField(_optionsProperty, GUIContent.none);
             if (EditorGUI.EndChangeCheck())
             {
                 property.serializedObject.ApplyModifiedProperties();

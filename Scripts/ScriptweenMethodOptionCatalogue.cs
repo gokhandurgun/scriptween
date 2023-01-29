@@ -10,7 +10,7 @@ namespace Scriptweener
     [Serializable]
     public class ScriptweenMethodOptionCatalogue
     {
-        private static List<Type> m_OptionClassList =
+        private static List<Type> _optionClassList =
                new List<Type>()
                {
                 typeof(SetIdOption),
@@ -30,9 +30,9 @@ namespace Scriptweener
 
                 var currentCategories = Options?.Select(x => x.GetType().GetCategory()).Distinct() ?? Enumerable.Empty<string>();
 
-                for (var i = 0; i < m_OptionClassList.Count; i++)
+                for (var i = 0; i < _optionClassList.Count; i++)
                 {
-                    var item = m_OptionClassList[i];
+                    var item = _optionClassList[i];
                     if (currentCategories.Contains(item.GetCategory())) continue;
 
                     yield return $"{item.GetCategory()}/{item.GetDescription()}";
@@ -46,7 +46,7 @@ namespace Scriptweener
         public void AddOption(string selectedOption)
         {
             if (selectedOption == "(select)") return;
-            var selectedType = m_OptionClassList.First(x => $"{x.GetCategory()}/{x.GetDescription()}" == selectedOption);
+            var selectedType = _optionClassList.First(x => $"{x.GetCategory()}/{x.GetDescription()}" == selectedOption);
 
             if (selectedType.IsSubclassOf(typeof(BaseScriptweenMethodOption)))
             {

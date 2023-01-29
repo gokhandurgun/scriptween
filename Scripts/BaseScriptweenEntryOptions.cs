@@ -13,7 +13,6 @@ namespace Scriptweener
 
         public static BaseScriptweenEntryOptions Create(IScriptween scriptween, BaseScriptweenEntryOptions options = null)
         {
-            Debug.Log("Base scriptween entry options called.");
             if (options != null)
             {
                 if (options.Update(scriptween))

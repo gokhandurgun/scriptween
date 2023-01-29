@@ -10,8 +10,6 @@ namespace Scriptweener
         [SerializeReference]
         public T Scriptween;
 
-        //TODO: Check saved
-        //TODO: Check public fields
         [SerializeReference]
         public BaseScriptweenEntryOptions EntryOptions;
 

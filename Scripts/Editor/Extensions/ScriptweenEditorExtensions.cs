@@ -15,7 +15,6 @@ namespace Scriptween.Editor.Extensions
     {
         private static readonly Regex _matchArrayElement = new Regex(@"^data\[(\d+)\]$");
 
-        //TODO: Maybe attribute
         public static MethodInfo GetDrawerEnableMethod(this object o)
         {
             var method = o.GetType().GetMethod("OnInspectorEnable", new[] { typeof(SerializedProperty) });

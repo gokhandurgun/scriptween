@@ -10,26 +10,24 @@ namespace Scriptweener
     [CreateAssetMenu(menuName = "Create Scriptween", fileName = "Scriptween", order = 0)]
     public class Scriptween : ScriptableObject, IScriptween
     {
-        //TODO: Remove s_, m_
-        private static BaseScriptweenMethodWrapper[] s_ScriptweenMethods;
+        private static BaseScriptweenMethodWrapper[] _scriptweenMethods;
 
-        //TODO: Better
-        public static IEnumerable<string> TweenNames => s_ScriptweenMethods.Select(x => x.Name);
+        public static IEnumerable<string> TweenNames => _scriptweenMethods.Select(x => x.Name);
 
-        public ScriptweenMethodOptionCatalogue OptionCatalogue => m_OptionCatalogue;
+        public ScriptweenMethodOptionCatalogue OptionCatalogue => _optionCatalogue;
 
         public string Tween;
 
-        [SerializeField] private ScriptweenMethodOptionCatalogue m_OptionCatalogue;
+        [SerializeField] private ScriptweenMethodOptionCatalogue _optionCatalogue;
 
-        [SerializeField] [HideInInspector] private BaseScriptweenMethodWrapper selectedMethodWrapper;
+        [SerializeField] [HideInInspector] private BaseScriptweenMethodWrapper _selectedMethodWrapper;
 
         [SerializeReference]
         public BaseScriptweenMethod SelectedTween;
 
         static Scriptween()
         {
-            s_ScriptweenMethods = AppDomain.CurrentDomain.GetAssemblies()
+            _scriptweenMethods = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(x => x.GetTypes())
                 .Where(x => x.IsSubclassOf(typeof(BaseScriptweenMethod)))
                 .Select(x => BaseScriptweenMethodWrapper.Create(x))
@@ -43,22 +41,22 @@ namespace Scriptweener
             {
                 Tween = TweenNames.FirstOrDefault();
             }
-            var wrapper = s_ScriptweenMethods.FirstOrDefault(x => x.Name == Tween);
+            var wrapper = _scriptweenMethods.FirstOrDefault(x => x.Name == Tween);
 
-            if (selectedMethodWrapper != null && selectedMethodWrapper.Name == wrapper.Name) return;
-            selectedMethodWrapper = wrapper;
+            if (_selectedMethodWrapper != null && _selectedMethodWrapper.Name == wrapper.Name) return;
+            _selectedMethodWrapper = wrapper;
 
-            SelectedTween = Activator.CreateInstance(selectedMethodWrapper.BaseScriptweenType) as BaseScriptweenMethod;
+            SelectedTween = Activator.CreateInstance(_selectedMethodWrapper.BaseScriptweenType) as BaseScriptweenMethod;
         }
 
         public Type GetTargetType()
         {
-            if (selectedMethodWrapper == null)
+            if (_selectedMethodWrapper == null)
             {
-                selectedMethodWrapper = s_ScriptweenMethods.FirstOrDefault(x => x.Name == Tween);
+                _selectedMethodWrapper = _scriptweenMethods.FirstOrDefault(x => x.Name == Tween);
             }
 
-            var targetType = selectedMethodWrapper.MethodDefinitionAttribute.ParameterTypes[0];
+            var targetType = _selectedMethodWrapper.MethodDefinitionAttribute.ParameterTypes[0];
             if (!targetType.IsSubclassOf(typeof(UnityEngine.Object))) return null;
 
             return targetType;
@@ -66,7 +64,7 @@ namespace Scriptweener
 
         public Tween Play(UnityEngine.Object target)
         {
-            if (selectedMethodWrapper == null)
+            if (_selectedMethodWrapper == null)
             {
                 Debug.LogError("ScriptweenWrapper is null");
                 return null;
@@ -93,9 +91,9 @@ namespace Scriptweener
 
             var parameters = SelectedTween.GetValues().ToList();
             parameters.Insert(0, target);
-            var tween = selectedMethodWrapper.MethodInfo.Invoke(null, parameters.ToArray()) as Tween;
+            var tween = _selectedMethodWrapper.MethodInfo.Invoke(null, parameters.ToArray()) as Tween;
 
-            foreach (var option in m_OptionCatalogue.Options)
+            foreach (var option in _optionCatalogue.Options)
             {
                 option.Apply(tween);
             }
@@ -104,58 +102,4 @@ namespace Scriptweener
         }
     }
 
-    [Serializable]
-    public class BaseScriptweenMethodWrapper
-    {
-        [SerializeField] private ClassTypeReference m_BaseScriptweenType;
-        public ClassTypeReference BaseScriptweenType => m_BaseScriptweenType;
-
-        [SerializeField] private string m_Name;
-        public string Name => m_Name;
-
-        private MethodDefinitionAttribute m_MethodDefinitionAttribute;
-
-        public MethodDefinitionAttribute MethodDefinitionAttribute
-        {
-            get
-            {
-                if (m_MethodDefinitionAttribute == null)
-                {
-                    m_MethodDefinitionAttribute = BaseScriptweenType.Type.GetMethodDefinitionAtt();
-                }
-
-                return m_MethodDefinitionAttribute;
-            }
-        }
-
-        private MethodInfo m_MethodInfo;
-
-        public MethodInfo MethodInfo
-        {
-            get
-            {
-                if (m_MethodInfo == null)
-                {
-                    m_MethodInfo = BaseScriptweenType.Type.GetMethodInfoAtt();
-                }
-
-                return m_MethodInfo;
-            }
-        }
-
-        private BaseScriptweenMethodWrapper()
-        {
-        }
-
-        public static BaseScriptweenMethodWrapper Create(Type type)
-        {
-            return new BaseScriptweenMethodWrapper()
-            {
-                m_BaseScriptweenType = type,
-                m_Name = type.GetDescription()
-            };
-        }
-
-        public ParameterInfo[] GetParameters() => MethodInfo.GetParameters();
-    }
 }

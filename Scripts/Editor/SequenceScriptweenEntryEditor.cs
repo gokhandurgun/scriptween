@@ -34,7 +34,7 @@ namespace Scriptweener.Editor
 
             EditorGUI.BeginProperty(position, label, property);
 
-            //I amnot sure why i need it but by default it creates one line space...
+            //I'm not sure why i need it but by default it creates one line space...
             EditorGUILayout.Space(-EditorGUIUtility.singleLineHeight - EditorGUIUtility.standardVerticalSpacing);  
 
             property.serializedObject.Update();

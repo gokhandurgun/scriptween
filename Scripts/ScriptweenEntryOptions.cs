@@ -9,17 +9,17 @@ namespace Scriptweener
     {
         [SerializeField]
         [HideInInspector]
-        private ClassTypeReference m_TargetType;
+        private ClassTypeReference _targetType;
         public ClassTypeReference TargetType
         {
             get
             {
-                return m_TargetType;
+                return _targetType;
             }
             set
             {
-                if (m_TargetType?.Type == value?.Type) return;
-                m_TargetType = value;
+                if (_targetType?.Type == value?.Type) return;
+                _targetType = value;
                 Target = null;
             }
         }
@@ -27,7 +27,7 @@ namespace Scriptweener
         [ScriptweenTargetObject(nameof(TargetType))]
         public UnityEngine.Object Target;
 
-        private Scriptween m_CachedScriptween;
+        private Scriptween _cachedScriptween;
 
         public ScriptweenEntryOptions()
         {
@@ -52,13 +52,13 @@ namespace Scriptweener
 
         public override Tween PlayTween(IScriptween scriptween)
         {
-            if (m_CachedScriptween != scriptween)
+            if (_cachedScriptween != scriptween)
             {
-                m_CachedScriptween = scriptween as Scriptween;
+                _cachedScriptween = scriptween as Scriptween;
             }
 
-            if (m_CachedScriptween == null) return null;
-            return m_CachedScriptween.Play(Target);
+            if (_cachedScriptween == null) return null;
+            return _cachedScriptween.Play(Target);
         }
 
     }

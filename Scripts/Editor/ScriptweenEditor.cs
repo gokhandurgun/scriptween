@@ -11,17 +11,17 @@ namespace Scriptweener.Editor
     [CustomEditor(typeof(Scriptween), true)]
     public class ScriptweenEditor : UnityEditor.Editor
     {
-        private Scriptween m_Scriptween;
-        private SerializedProperty m_OptionsProperty;
+        private Scriptween _scriptween;
+        private SerializedProperty _optionsProperty;
 
         private void OnEnable()
         {
             if (!target) return;
 
-            m_OptionsProperty = serializedObject.FindProperty("m_OptionCatalogue");
-            m_Scriptween = target as Scriptween;
+            _optionsProperty = serializedObject.FindProperty("_optionCatalogue");
+            _scriptween = target as Scriptween;
 
-            m_Scriptween.TweenSelected();
+            _scriptween.TweenSelected();
         }
 
         public override void OnInspectorGUI()
@@ -35,7 +35,7 @@ namespace Scriptweener.Editor
             var selectedIndex = 0;
             for (int i = 0; i < options.Length; i++)
             {
-                if (m_Scriptween.Tween == options[i])
+                if (_scriptween.Tween == options[i])
                 {
                     selectedIndex = i;
                     break;
@@ -47,8 +47,8 @@ namespace Scriptweener.Editor
             selectedIndex = EditorGUILayout.Popup("Tween", selectedIndex, options);
             if (EditorGUI.EndChangeCheck())
             {
-                m_Scriptween.Tween = options[selectedIndex];
-                m_Scriptween.TweenSelected();
+                _scriptween.Tween = options[selectedIndex];
+                _scriptween.TweenSelected();
             }
 
             EditorGUILayout.Space(8);
@@ -60,7 +60,7 @@ namespace Scriptweener.Editor
             }
 
             EditorGUI.BeginChangeCheck();
-            EditorGUILayout.PropertyField(m_OptionsProperty, GUIContent.none);
+            EditorGUILayout.PropertyField(_optionsProperty, GUIContent.none);
             if (EditorGUI.EndChangeCheck())
             {
                 serializedObject.ApplyModifiedProperties();

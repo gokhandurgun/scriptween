@@ -4,6 +4,7 @@ namespace Scriptweener
 {
     public class ScriptweenMonoBehaviour : MonoBehaviour
     {
+        //TODO: Organize
         //public ScriptweenEntry Entry;
 
         //[LabelText("OnAwake")]

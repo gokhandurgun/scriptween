@@ -3,8 +3,7 @@ using System.ComponentModel;
 using DG.Tweening;
 
 namespace Scriptweener
-{
-    
+{    
     [Category("Set Speed Based")]
     [Description("Set Speed Based")]
     [Serializable]

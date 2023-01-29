@@ -9,11 +9,11 @@ namespace Scriptweener
     [Serializable]
     public class SequenceScriptween : IScriptween
     {
-        public ScriptweenMethodOptionCatalogue OptionCatalogue => m_OptionCatalogue;
+        public ScriptweenMethodOptionCatalogue OptionCatalogue => _optionCatalogue;
 
         public List<SequenceScriptweenEntry> Entries;
 
-        [SerializeField] private ScriptweenMethodOptionCatalogue m_OptionCatalogue;
+        [SerializeField] private ScriptweenMethodOptionCatalogue _optionCatalogue;
 
         public Sequence Play()
         {
@@ -30,7 +30,7 @@ namespace Scriptweener
                 Next(sequence, e);
             }
             
-            foreach (var option in m_OptionCatalogue.Options)
+            foreach (var option in _optionCatalogue.Options)
             {
                 option.Apply(sequence);
             }

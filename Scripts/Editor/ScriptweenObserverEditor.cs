@@ -8,23 +8,22 @@ namespace Scriptweener.Editor
     [CustomPropertyDrawer(typeof(ScriptweenObserver), true)]
     public class ScriptweenObserverEditor : PropertyDrawer
     {
-        private UnityEditor.Editor m_Editor;
-        private bool m_Initialized = false;
+        private bool _initialized = false;
 
-        private ScriptweenObserver m_ScriptweenObserver;
-        private SerializedProperty m_ListenersProperty;
+        private ScriptweenObserver _scriptweenObserver;
+        private SerializedProperty _listenersProperty;
 
         private void OnEnable(SerializedProperty property)
         {
-            m_ScriptweenObserver = fieldInfo.GetValue(property.serializedObject.targetObject) as ScriptweenObserver;
-            m_ListenersProperty = property.FindPropertyRelative(nameof(ScriptweenObserver.Listeners));
+            _scriptweenObserver = fieldInfo.GetValue(property.serializedObject.targetObject) as ScriptweenObserver;
+            _listenersProperty = property.FindPropertyRelative(nameof(ScriptweenObserver.Listeners));
 
-            m_Initialized = true;
+            _initialized = true;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (!m_Initialized)
+            if (!_initialized)
             {
                 OnEnable(property);
             }
@@ -42,22 +41,22 @@ namespace Scriptweener.Editor
             position.x = totalWidth - position.width;
             if (GUI.Button(position, "Add Sequence"))
             {
-                if (m_ScriptweenObserver.Listeners == null)
+                if (_scriptweenObserver.Listeners == null)
                 {
-                    m_ScriptweenObserver.Listeners = new System.Collections.Generic.List<IBaseScriptweenEntry>();
+                    _scriptweenObserver.Listeners = new System.Collections.Generic.List<IBaseScriptweenEntry>();
                 }
-                m_ScriptweenObserver.Listeners.Add(new NestedScriptweenEntry());
+                _scriptweenObserver.Listeners.Add(new NestedScriptweenEntry());
                 property.serializedObject.ApplyModifiedProperties();
             }
 
             position.x -= position.width;
             if (GUI.Button(position, "Add Tween"))
             {
-                if (m_ScriptweenObserver.Listeners == null)
+                if (_scriptweenObserver.Listeners == null)
                 {
-                    m_ScriptweenObserver.Listeners = new System.Collections.Generic.List<IBaseScriptweenEntry>();
+                    _scriptweenObserver.Listeners = new System.Collections.Generic.List<IBaseScriptweenEntry>();
                 }
-                m_ScriptweenObserver.Listeners.Add(new ScriptweenEntry());
+                _scriptweenObserver.Listeners.Add(new ScriptweenEntry());
                 property.serializedObject.ApplyModifiedProperties();
             }
 
@@ -67,19 +66,19 @@ namespace Scriptweener.Editor
                 position.x -= position.width;
                 if (GUI.Button(position, "Pause"))
                 {
-                    foreach (var tween in m_ScriptweenObserver.Tweens)
+                    foreach (var tween in _scriptweenObserver.Tweens)
                     {
                         tween.Kill();
                     }
 
-                    m_ScriptweenObserver.Tweens.Clear();
+                    _scriptweenObserver.Tweens.Clear();
                 }
                 position.x -= position.width;
                 if (GUI.Button(position, "Play"))
                 {
-                    var newTweens = m_ScriptweenObserver.InvokeAll();
+                    var newTweens = _scriptweenObserver.InvokeAll();
 
-                    m_ScriptweenObserver.Tweens = m_ScriptweenObserver.Tweens.Where(x => x.active).Concat(newTweens).ToList();
+                    _scriptweenObserver.Tweens = _scriptweenObserver.Tweens.Where(x => x.active).Concat(newTweens).ToList();
                 }
             }
 
@@ -92,10 +91,10 @@ namespace Scriptweener.Editor
 
             if (property.isExpanded)
             {
-                var arraySize = m_ListenersProperty.arraySize;
+                var arraySize = _listenersProperty.arraySize;
                 for (var i = 0; i < arraySize; i++)
                 {
-                    var arrayElement = m_ListenersProperty.GetArrayElementAtIndex(i);
+                    var arrayElement = _listenersProperty.GetArrayElementAtIndex(i);
                     if (arrayElement != null)
                     {
                         EditorGUILayout.BeginHorizontal("box");
@@ -134,7 +133,7 @@ namespace Scriptweener.Editor
 
                             if (GUILayout.Button("\u2715", GUILayout.Width(20), GUILayout.Height(20)))
                             {
-                                m_ScriptweenObserver.Listeners.RemoveAt(i);
+                                _scriptweenObserver.Listeners.RemoveAt(i);
                                 i--;
                                 arraySize--;
                                 property.serializedObject.ApplyModifiedProperties();

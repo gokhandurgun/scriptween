@@ -7,7 +7,7 @@ namespace Scriptweener
     [Serializable]
     public class SequenceScriptweenEntryOptions : BaseScriptweenEntryOptions
     {
-        private SequenceScriptween m_CachedScriptween;
+        private SequenceScriptween _cachedScriptween;
         
         protected override bool Update(IScriptween scriptween)
         {
@@ -16,13 +16,13 @@ namespace Scriptweener
 
         public override Tween PlayTween(IScriptween scriptween)
         {
-            if (m_CachedScriptween != scriptween)
+            if (_cachedScriptween != scriptween)
             {
-                m_CachedScriptween = scriptween as SequenceScriptween;
+                _cachedScriptween = scriptween as SequenceScriptween;
             }
 
-            if (m_CachedScriptween == null) return null;
-            return m_CachedScriptween.Play();
+            if (_cachedScriptween == null) return null;
+            return _cachedScriptween.Play();
         }
     }
 }

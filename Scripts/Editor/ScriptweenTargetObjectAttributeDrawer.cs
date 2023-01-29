@@ -7,8 +7,8 @@ namespace Scriptweener.Editor
     [CustomPropertyDrawer(typeof(ScriptweenTargetObjectAttribute), true)]
     public class ScriptweenTargetObjectAttributeDrawer : NestablePropertyDrawer
     {
-        private PropertyInfo m_PropertyInfo;
-        private FieldInfo m_FieldInfo;
+        private PropertyInfo _propertyInfo;
+        private FieldInfo _fieldInfo;
 
         protected override void OnEnable(SerializedProperty property)
         {
@@ -33,8 +33,8 @@ namespace Scriptweener.Editor
                 }
             }
 
-            m_PropertyInfo = propertyInfo;
-            m_FieldInfo = fieldInfo;
+            _propertyInfo = propertyInfo;
+            _fieldInfo = fieldInfo;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -43,13 +43,13 @@ namespace Scriptweener.Editor
 
             var obj = _currentPropertyParentObject;
             ClassTypeReference targetType = null;
-            if (m_PropertyInfo != null)
+            if (_propertyInfo != null)
             {
-                targetType = m_PropertyInfo.GetMethod.Invoke(obj, null) as ClassTypeReference;
+                targetType = _propertyInfo.GetMethod.Invoke(obj, null) as ClassTypeReference;
             }
-            else if (m_FieldInfo != null)
+            else if (_fieldInfo != null)
             {
-                targetType = m_FieldInfo.GetValue(obj) as ClassTypeReference;
+                targetType = _fieldInfo.GetValue(obj) as ClassTypeReference;
             }
 
             if (targetType != null)
