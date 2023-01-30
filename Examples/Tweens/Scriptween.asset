@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Scriptween
   m_EditorClassIdentifier: 
   Tween: DOAspect
-  m_OptionCatalogue:
+  _optionCatalogue:
     Options: []
-  selectedMethodWrapper:
-    m_BaseScriptweenType:
+  _selectedMethodWrapper:
+    _baseScriptweenType:
       _classRef: Scriptweener.DOAspectScriptween, Assembly-CSharp
-    m_Name: DOAspect
+    _name: DOAspect
   SelectedTween:
-    rid: 7395055298800779265
+    rid: 7395055322223869953
   references:
     version: 2
     RefIds:
-    - rid: 7395055298800779265
+    - rid: 7395055322223869953
       type: {class: DOAspectScriptween, ns: Scriptweener, asm: Assembly-CSharp}
       data:
         endValue: 0

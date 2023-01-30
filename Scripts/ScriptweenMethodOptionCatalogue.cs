@@ -26,8 +26,6 @@ namespace Scriptweener
         {
             get
             {
-                yield return "(select)";
-
                 var currentCategories = Options?.Select(x => x.GetType().GetCategory()).Distinct() ?? Enumerable.Empty<string>();
 
                 for (var i = 0; i < _optionClassList.Count; i++)

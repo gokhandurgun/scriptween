@@ -8,8 +8,6 @@ using UnityEngine;
 
 namespace Scriptweener.Editor
 {
-    //TODO: Make all popups into this
-
     //Source: https://www.youtube.com/watch?v=0HHeIUGsuW8&ab_channel=GameDevGuide
     public class StringListSearchProvider : ScriptableObject, ISearchWindowProvider
     {
@@ -71,7 +69,7 @@ namespace Scriptweener.Editor
 
                 SearchTreeEntry entry = new SearchTreeEntry(new GUIContent(entryTitle.Last()));
                 entry.level = entryTitle.Length;
-                entry.userData = entryTitle.Last();
+                entry.userData = item;
                 retVal.Add(entry);
             }
 

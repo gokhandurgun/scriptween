@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Scriptweener.Editor
@@ -14,6 +15,8 @@ namespace Scriptweener.Editor
         private ScriptweenMethodOptionCatalogue _optionCatalogue;
 
         private SerializedProperty _optionsProperty;
+
+        private StringListSearchProvider _optionSearchProvider;
 
         protected override void OnEnable(SerializedProperty property)
         {
@@ -27,7 +30,6 @@ namespace Scriptweener.Editor
         {
             base.OnGUI(position, property, label);
 
-
             EditorGUI.BeginProperty(position, label, property);
 
             _optionsProperty.serializedObject.Update();
@@ -39,15 +41,26 @@ namespace Scriptweener.Editor
                 EditorGUI.indentLevel++;
                 var options = _optionCatalogue.OptionNames.ToArray();
 
-                EditorGUI.BeginChangeCheck();
-                var selection = EditorGUILayout.Popup("Add", 0, options);
-                if (EditorGUI.EndChangeCheck())
+                if (_optionSearchProvider == null)
                 {
-                    if (selection != 0)
-                    {
-                        _optionCatalogue.AddOption(options[selection]);
-                    }
+                    _optionSearchProvider = new StringListSearchProvider();
                 }
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Add Option", GUILayout.ExpandWidth(false), GUILayout.Width(EditorGUIUtility.labelWidth));
+                var lastRect = GUILayoutUtility.GetLastRect();
+                lastRect.y += EditorGUIUtility.singleLineHeight * 2;
+                lastRect.x += EditorGUIUtility.labelWidth + 125;
+                if (GUILayout.Button("(select)", EditorStyles.popup))
+                {
+                    _optionSearchProvider.Load("Add Option", options, x =>
+                    {
+                        _optionCatalogue.AddOption(x);
+                    });
+
+                    SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(lastRect.position)), _optionSearchProvider);
+                }
+                EditorGUILayout.EndHorizontal();
 
                 var arraySize = _optionsProperty.arraySize;
                 for (var i = 0; i < arraySize; i++)

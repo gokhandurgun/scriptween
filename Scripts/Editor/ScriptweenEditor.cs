@@ -39,6 +39,9 @@ namespace Scriptweener.Editor
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Tween", GUILayout.ExpandWidth(false), GUILayout.Width(EditorGUIUtility.labelWidth));
+            var lastRect = GUILayoutUtility.GetLastRect();
+            lastRect.y += EditorGUIUtility.singleLineHeight * 2;
+            lastRect.x += EditorGUIUtility.labelWidth + 125;
             if (GUILayout.Button(_scriptween.Tween, EditorStyles.popup))
             {
                 var options = Scriptween.TweenNames.ToArray();
@@ -52,7 +55,7 @@ namespace Scriptweener.Editor
                     }
                 });
 
-                SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(Event.current.mousePosition)), _tweenSearchProvider);
+                SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(lastRect.position)), _tweenSearchProvider);
             }
 
             EditorGUILayout.EndHorizontal();
