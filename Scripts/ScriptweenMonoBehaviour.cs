@@ -4,43 +4,35 @@ namespace Scriptweener
 {
     public class ScriptweenMonoBehaviour : MonoBehaviour
     {
-        //TODO: Organize
-        //public ScriptweenEntry Entry;
+        public ScriptweenObserver AwakeTweens;
+        public ScriptweenObserver StartTweens;
+        public ScriptweenObserver EnableTweens;
+        public ScriptweenObserver DisableTweens;
+        public ScriptweenObserver DestroyTweens;
 
-        //[LabelText("OnAwake")]
-        public ScriptweenObserver AwakeCalled;
-
-        // [LabelText("OnStart")]
-        // public ScriptweenObserver StartCalled;
-        // [LabelText("OnEnable")]
-        // public ScriptweenObserver EnableCalled;
-        // [LabelText("OnDisable")]
-        // public ScriptweenObserver DisableCalled;
-        // [LabelText("OnDestroy")]
-        // public ScriptweenObserver DestroyCalled;
         protected virtual void Awake()
         {
-            //AwakeCalled?.InvokeAll();
+            AwakeTweens?.InvokeAll();
         }
 
         protected virtual void Start()
         {
-            // StartCalled?.InvokeAll();
+            StartTweens?.InvokeAll();
         }
 
         protected virtual void OnEnable()
         {
-            // EnableCalled?.InvokeAll();
+            EnableTweens?.InvokeAll();
         }
 
         protected virtual void OnDisable()
         {
-            // DisableCalled?.InvokeAll();
+            DisableTweens?.InvokeAll();
         }
 
         protected virtual void OnDestroy()
         {
-            // DestroyCalled?.InvokeAll();
+            DestroyTweens?.InvokeAll();
         }
     }
 }

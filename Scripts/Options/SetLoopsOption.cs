@@ -11,7 +11,6 @@ namespace Scriptweener
     {
         public int Count;
 
-        //TODO: Looptype gözükmüyor
         public LoopType LoopType;
         
         public override void Apply(Tween tween)

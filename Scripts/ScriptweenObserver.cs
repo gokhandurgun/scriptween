@@ -13,10 +13,13 @@ namespace Scriptweener
 
         public IEnumerable<Tween> InvokeAll()
         {
+            var retVal = new List<Tween>();
             foreach (var e in Listeners)
             {
-                yield return e.GetEntryOptions()?.PlayTween(e.GetScriptween());
+                retVal.Add(e.GetEntryOptions()?.PlayTween(e.GetScriptween()));
             }
+
+            return retVal;
         }
 
 #if UNITY_EDITOR

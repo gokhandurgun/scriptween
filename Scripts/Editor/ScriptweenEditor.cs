@@ -65,7 +65,12 @@ namespace Scriptweener.Editor
             var selectedTweenProperty = serializedObject.FindProperty(nameof(Scriptween.SelectedTween));
             while (selectedTweenProperty.NextVisible(true))
             {
-                EditorGUILayout.PropertyField(selectedTweenProperty);               
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.PropertyField(selectedTweenProperty);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedObject.ApplyModifiedProperties();
+                }
             }
 
             EditorGUI.BeginChangeCheck();
