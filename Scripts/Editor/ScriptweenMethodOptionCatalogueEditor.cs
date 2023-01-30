@@ -77,8 +77,11 @@ namespace Scriptweener.Editor
                         style.fontStyle = FontStyle.Bold;
                         EditorGUILayout.LabelField($@"#{i} {category}", style);
 
-                        arrayElement.Next(true);
-                        EditorGUILayout.PropertyField(arrayElement, true);
+                        var validDepth = arrayElement.depth + 1;
+                        while (arrayElement.NextVisible(true) && arrayElement.depth == validDepth)
+                        {
+                            EditorGUILayout.PropertyField(arrayElement, true);
+                        }                        
 
                         GUILayout.EndVertical();
                     }
