@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea867dc795cd45d9b97d47d0079f2aed, type: 3}
+  m_Name: DOMove
+  m_EditorClassIdentifier: 
+  Tween: DOMove
+  _optionCatalogue:
+    Options:
+    - rid: 6862294209075085332
+    - rid: 6862294209075085333
+    - rid: 6862294209075085336
+  _selectedMethodWrapper:
+    _baseScriptweenType:
+      _classRef: Scriptweener.DOMoveScriptween, Assembly-CSharp
+    _name: DOMove
+  SelectedTween:
+    rid: 6862294209075085331
+  references:
+    version: 2
+    RefIds:
+    - rid: 6862294209075085331
+      type: {class: DOMoveScriptween, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        endValue: {x: 400, y: 0, z: 0}
+        duration: 2
+        snapping: 0
+    - rid: 6862294209075085332
+      type: {class: SetRelativeOption, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        IsRelative: 1
+    - rid: 6862294209075085333
+      type: {class: SetLoopsOption, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        Count: -1
+        LoopType: 1
+    - rid: 6862294209075085336
+      type: {class: SetEase2Option, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        Ease: 4
