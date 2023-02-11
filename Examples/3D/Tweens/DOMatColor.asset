@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea867dc795cd45d9b97d47d0079f2aed, type: 3}
+  m_Name: DOMatColor
+  m_EditorClassIdentifier: 
+  Tween: DOBlendableColor<Material,Color,Single>
+  _optionCatalogue:
+    Options:
+    - rid: 6862294225161289770
+    - rid: 6862294225161289771
+  _selectedMethodWrapper:
+    _baseScriptweenType:
+      _classRef: Scriptweener.DOBlendableColor2Scriptween, Assembly-CSharp
+    _name: DOBlendableColor<Material,Color,Single>
+  SelectedTween:
+    rid: 6862294225161289765
+  references:
+    version: 2
+    RefIds:
+    - rid: 6862294225161289765
+      type: {class: DOBlendableColor2Scriptween, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        endValue: {r: 1, g: 0, b: 0.051336765, a: 1}
+        duration: 1
+    - rid: 6862294225161289770
+      type: {class: SetLoopsOption, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        Count: -1
+        LoopType: 1
+    - rid: 6862294225161289771
+      type: {class: SetEase2Option, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        Ease: 1

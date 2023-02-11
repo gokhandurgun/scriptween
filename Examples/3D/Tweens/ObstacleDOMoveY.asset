@@ -10,44 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea867dc795cd45d9b97d47d0079f2aed, type: 3}
-  m_Name: Scriptween
+  m_Name: ObstacleDOMoveY
   m_EditorClassIdentifier: 
-  Tween: DOMoveX
+  Tween: DOMoveY
   _optionCatalogue:
     Options:
-    - rid: 7395055323005583371
-    - rid: 7395055323005583372
-    - rid: 7395055323005583373
-    - rid: 7395055323005583374
+    - rid: 6862294225161289751
+    - rid: 6862294225161289752
+    - rid: 6862294225161289753
   _selectedMethodWrapper:
     _baseScriptweenType:
-      _classRef: Scriptweener.DOMoveXScriptween, Assembly-CSharp
-    _name: DOMoveX
+      _classRef: Scriptweener.DOMoveYScriptween, Assembly-CSharp
+    _name: DOMoveY
   SelectedTween:
-    rid: 7395055323005583370
+    rid: 6862294225161289750
   references:
     version: 2
     RefIds:
-    - rid: 7395055323005583370
-      type: {class: DOMoveXScriptween, ns: Scriptweener, asm: Assembly-CSharp}
+    - rid: 6862294225161289750
+      type: {class: DOMoveYScriptween, ns: Scriptweener, asm: Assembly-CSharp}
       data:
-        endValue: 1
+        endValue: -1
         duration: 1
         snapping: 0
-    - rid: 7395055323005583371
-      type: {class: SetDelayOption, ns: Scriptweener, asm: Assembly-CSharp}
-      data:
-        Duration: 1
-    - rid: 7395055323005583372
+    - rid: 6862294225161289751
       type: {class: SetRelativeOption, ns: Scriptweener, asm: Assembly-CSharp}
       data:
         IsRelative: 1
-    - rid: 7395055323005583373
+    - rid: 6862294225161289752
       type: {class: SetLoopsOption, ns: Scriptweener, asm: Assembly-CSharp}
       data:
-        Count: 3
-        LoopType: 2
-    - rid: 7395055323005583374
+        Count: -1
+        LoopType: 1
+    - rid: 6862294225161289753
       type: {class: SetEase2Option, ns: Scriptweener, asm: Assembly-CSharp}
       data:
         Ease: 1

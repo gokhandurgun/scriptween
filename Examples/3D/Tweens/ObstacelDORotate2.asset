@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea867dc795cd45d9b97d47d0079f2aed, type: 3}
+  m_Name: ObstacelDORotate2
+  m_EditorClassIdentifier: 
+  Tween: DORotate
+  _optionCatalogue:
+    Options:
+    - rid: 6862294225161289762
+  _selectedMethodWrapper:
+    _baseScriptweenType:
+      _classRef: Scriptweener.DORotateScriptween, Assembly-CSharp
+    _name: DORotate
+  SelectedTween:
+    rid: 6862294225161289761
+  references:
+    version: 2
+    RefIds:
+    - rid: 6862294225161289761
+      type: {class: DORotateScriptween, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        endValue: {x: 0, y: 0, z: 45}
+        duration: 1
+        mode: 0
+    - rid: 6862294225161289762
+      type: {class: SetRelativeOption, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        IsRelative: 1
