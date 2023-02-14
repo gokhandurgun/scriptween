@@ -12,26 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea867dc795cd45d9b97d47d0079f2aed, type: 3}
   m_Name: DOHandAnchorMove
   m_EditorClassIdentifier: 
-  Tween: DOMove
+  Tween: DOAnchorPos
   _optionCatalogue:
     Options:
     - rid: 6862294225161289732
   _selectedMethodWrapper:
     _baseScriptweenType:
-      _classRef: Scriptweener.DOMoveScriptween, Assembly-CSharp
-    _name: DOMove
+      _classRef: Scriptweener.DOAnchorPosScriptween, Assembly-CSharp
+    _name: DOAnchorPos
   SelectedTween:
-    rid: 6862294225161289730
+    rid: 6862294297547898880
   references:
     version: 2
     RefIds:
-    - rid: 6862294225161289730
-      type: {class: DOMoveScriptween, ns: Scriptweener, asm: Assembly-CSharp}
-      data:
-        endValue: {x: 65, y: -140, z: 0}
-        duration: 2
-        snapping: 0
     - rid: 6862294225161289732
       type: {class: SetEase2Option, ns: Scriptweener, asm: Assembly-CSharp}
       data:
         Ease: 4
+    - rid: 6862294297547898880
+      type: {class: DOAnchorPosScriptween, ns: Scriptweener, asm: Assembly-CSharp}
+      data:
+        endValue: {x: 55, y: -143}
+        duration: 1
+        snapping: 0
