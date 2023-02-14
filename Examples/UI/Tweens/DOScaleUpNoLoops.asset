@@ -15,7 +15,6 @@ MonoBehaviour:
   Tween: DOScale<Transform,Single,Single>
   _optionCatalogue:
     Options:
-    - rid: 6862294209075085343
     - rid: 6862294209075085344
   _selectedMethodWrapper:
     _baseScriptweenType:
@@ -31,11 +30,6 @@ MonoBehaviour:
       data:
         endValue: 2
         duration: 0.25
-    - rid: 6862294209075085343
-      type: {class: SetLoopsOption, ns: Scriptweener, asm: Assembly-CSharp}
-      data:
-        Count: 2
-        LoopType: 1
     - rid: 6862294209075085344
       type: {class: SetEase2Option, ns: Scriptweener, asm: Assembly-CSharp}
       data:

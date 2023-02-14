@@ -55,9 +55,7 @@ namespace Scriptweener.Editor
 
             {
                 EditorGUI.indentLevel++;
-
-                var arraySize = _entriesProperty.arraySize;
-                for (var i = 0; i < arraySize; i++)
+                for (var i = 0; i < _entriesProperty.arraySize; i++)
                 {
                     var arrayElement = _entriesProperty.GetArrayElementAtIndex(i);
                     if (arrayElement != null)
@@ -86,30 +84,31 @@ namespace Scriptweener.Editor
                             }
                             else if (GUILayout.Button("\u25B2", GUILayout.Width(22), GUILayout.Height(20)))
                             {
-                                var item = _sequenceScriptween.Entries[i];
-                                _sequenceScriptween.Entries.RemoveAt(i);
-                                _sequenceScriptween.Entries.Insert(i - 1, item);
+                                _entriesProperty.MoveArrayElement(i, i - 1);
 
                                 _entriesProperty.serializedObject.ApplyModifiedProperties();
                             }
 
                             if (GUILayout.Button("\u2715", GUILayout.Width(22), GUILayout.Height(20)))
                             {
-                                _sequenceScriptween.Entries.RemoveAt(i);
-                                i--;
-                                arraySize--;
+                                var arraySize = _entriesProperty.arraySize;
+                                _entriesProperty.DeleteArrayElementAtIndex(i);
+                                //Ensure clear
+                                if (_entriesProperty.arraySize == arraySize)
+                                {
+                                    _entriesProperty.DeleteArrayElementAtIndex(i);
+                                }
+
                                 _entriesProperty.serializedObject.ApplyModifiedProperties();
                             }
 
-                            if (i == arraySize - 1)
+                            if (i == _entriesProperty.arraySize - 1)
                             {
                                 EditorGUILayout.Space(20 + EditorGUIUtility.standardVerticalSpacing);
                             }
                             else if (GUILayout.Button("\u25BC", GUILayout.Width(22), GUILayout.Height(20)))
                             {
-                                var item = _sequenceScriptween.Entries[i];
-                                _sequenceScriptween.Entries.RemoveAt(i);
-                                _sequenceScriptween.Entries.Insert(i + 1, item);
+                                _entriesProperty.MoveArrayElement(i, i + 1);
 
                                 _entriesProperty.serializedObject.ApplyModifiedProperties();
                             }
