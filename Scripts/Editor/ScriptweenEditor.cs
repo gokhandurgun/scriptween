@@ -63,7 +63,8 @@ namespace Scriptweener.Editor
             EditorGUILayout.Space(8);
 
             var selectedTweenProperty = serializedObject.FindProperty(nameof(Scriptween.SelectedTween));
-            while (selectedTweenProperty.NextVisible(true))
+            var validDepth = selectedTweenProperty.depth + 1;
+            while (selectedTweenProperty.NextVisible(true) && selectedTweenProperty.depth == validDepth)
             {
                 EditorGUI.BeginChangeCheck();
                 EditorGUILayout.PropertyField(selectedTweenProperty);
