@@ -43,6 +43,6 @@ namespace Scriptweener
                    || EntryMethod == SequenceScriptweenEntryMethod.InsertCallback
                    || EntryMethod == SequenceScriptweenEntryMethod.PrependCallback;
         }
-    }
 #endif
+    }
 }
