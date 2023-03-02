@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Scriptweener
 {
-    [CreateAssetMenu(menuName = "Create Scriptween", fileName = "Scriptween", order = 0)]
+    [CreateAssetMenu(menuName = "Scriptween", fileName = "Scriptween", order = 0)]
     public class Scriptween : ScriptableObject, IScriptween
     {
         private static BaseScriptweenMethodWrapper[] _scriptweenMethods;
