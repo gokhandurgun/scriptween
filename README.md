@@ -30,9 +30,13 @@ Press Play button and see the result.
 
 ![tutorial-scriptween-test](https://user-images.githubusercontent.com/10315533/223227207-ae7069bd-4745-4bfc-9237-bf523049bb03.gif)
 
-
 ## Install
 
-
+* Unity 2021.3+
+* Scriptween has a dependency to DOTween. Add DOTween 1.2.7+ and setup with all modules.
+* Install [Scriptween (1.0).assetbundle](https://drive.google.com/uc?export=download&id=1FZ4Qy11GSlt1_RnsWDYj1NIp8rYhWeYk)
 
 ## Credits
+
+I want to thank my friends (Mustafa & Furkan) for the project idea.
+Also huge credit to Demigiant (@demigiant) who created DOTween.
