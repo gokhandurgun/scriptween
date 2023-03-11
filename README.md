@@ -30,17 +30,24 @@ Press Play button and see the result.
 
 ![tutorial-scriptween-test](https://user-images.githubusercontent.com/10315533/223227207-ae7069bd-4745-4bfc-9237-bf523049bb03.gif)
 
-## Sample Media
+## Samples
 
-![mat-tween](https://user-images.githubusercontent.com/10315533/223252816-05efcfea-2787-4d89-a58f-676b5208f920.gif)
+I would like to share some use-cases, all of them include in the project.
 
-![trigger-tween](https://user-images.githubusercontent.com/10315533/223253120-a621587f-d338-4fe2-b350-5d282fc9cec4.gif)
+* Material animations can be easily created. It's quite useful, instead of creating shaders to animate over time.
+<img src="https://user-images.githubusercontent.com/10315533/223252816-05efcfea-2787-4d89-a58f-676b5208f920.gif" height=250>
 
-![obs-tween](https://user-images.githubusercontent.com/10315533/223253730-f644400b-8824-4f41-8f0c-cc28b9480ba1.gif)
+* ScriptweenMonoBehaviour has TriggerEnter list to set Scriptweens. Of course, you can create your own script to hold Scriptweens and play whenever you want. [ExBarrier.cs](Examples/3D/Scripts/ExBarrier.cs) is good example to start.
+<img src="https://user-images.githubusercontent.com/10315533/223253120-a621587f-d338-4fe2-b350-5d282fc9cec4.gif" height=250>
 
-![tutorial-tween](https://user-images.githubusercontent.com/10315533/223253856-f146bd8c-4159-409a-b671-54fafe0d2c9e.gif)
+* Suppose implementing spike obstacles, which is really common on hyper-casual runner games. With Scriptween, you don't need developer's grace (kidding :)).
+<img src="https://user-images.githubusercontent.com/10315533/223253730-f644400b-8824-4f41-8f0c-cc28b9480ba1.gif" height=250>
 
-![move-scale-tween](https://user-images.githubusercontent.com/10315533/223253180-dbe93447-c017-48db-9010-dacf4b4a2c61.gif)
+* Some UI animations, Scriptween very useful in making tutorials.
+<img src="https://user-images.githubusercontent.com/10315533/223253856-f146bd8c-4159-409a-b671-54fafe0d2c9e.gif" height=250>
+
+* You can create Sequences with several Scriptweens.
+<img src="https://user-images.githubusercontent.com/10315533/223253180-dbe93447-c017-48db-9010-dacf4b4a2c61.gif" width=450>
 
 ## Install
 
